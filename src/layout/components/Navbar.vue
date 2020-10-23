@@ -5,25 +5,23 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <!-- 全屏 -->
+      <screenfull id="screenfull" class="right-menu-item hover-effect" />
+      
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="user-avatar">
+          <span class="user-name">{{name}}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              Home
+              首页
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+          <el-dropdown-item @click.native="logout">
+            <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -35,14 +33,16 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-
+import screenfull from '@/components/Screenfull'
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    screenfull
   },
   computed: {
     ...mapGetters([
+      'name',
       'sidebar',
       'avatar'
     ])
@@ -88,7 +88,10 @@ export default {
     float: right;
     height: 100%;
     line-height: 50px;
-
+    #screenfull {
+      margin-right:10px;
+      vertical-align: 12px;
+    }
     &:focus {
       outline: none;
     }
@@ -99,8 +102,7 @@ export default {
       height: 100%;
       font-size: 18px;
       color: #5a5e66;
-      vertical-align: text-bottom;
-
+      // vertical-align: text-bottom;
       &.hover-effect {
         cursor: pointer;
         transition: background .3s;
@@ -115,16 +117,20 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
         position: relative;
 
         .user-avatar {
           cursor: pointer;
+          display: inline-block;
+          margin:5px 0;
           width: 40px;
           height: 40px;
           border-radius: 10px;
         }
-
+       .user-name {
+         display: inline-block;
+         vertical-align: 12px;
+       }
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;
